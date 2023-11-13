@@ -31,8 +31,8 @@
                     <form id="filter-form">
                         <select name="status" id="status" class="form-control mb-3">
                             <option value="">All</option>
-                            <option value="0">Not Confirmed</option>
-                            <option value="1">Confirmed</option>
+                            <option value="0">Not Done</option>
+                            <option value="1">Done</option>
                         </select>
                         <button type="submit" class="btn btn-primary">Apply Filter</button>
                     </form>
@@ -132,7 +132,7 @@
                     name: 'action',
                     orderable: false,
                     searchable: false,
-                    width: '25%'
+                    width: '15%'
                 },
             ]
         });

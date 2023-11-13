@@ -144,6 +144,13 @@
 
                     {{-- Payment List --}}
                     <div class="row mb-3 mt-5">
+                        @if ($subtotal - $invoice->discount - $paid == 0 && $invoice->status == 0)
+                            <div class="col-12">
+                                <a href="{{ route('invoices.markasdone', $invoice->id) }}" class="btn btn-success">Mark as
+                                    Done</a>
+                            </div>
+                        @else
+                        @endif
                         <div class="col-12">
                             <a class="btn btn-info m-1" href="{{ route('payments.index', $invoice->id) }}">
                                 Payment List

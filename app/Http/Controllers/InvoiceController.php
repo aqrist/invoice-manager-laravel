@@ -44,22 +44,22 @@ class InvoiceController extends Controller
                 ->editColumn('status', function ($item) {
                     if ($item->status == '0') {
                         # code...
-                        return 'Not Done';
+                        return '<i class="fas fa-fw fa-times"></i>';
                     } elseif ($item->status == '1') {
                         # code...
-                        return 'Done';
+                        return '<i class="fas fa-fw fa-check"></i>';
                     }
                 })
                 ->addColumn('action', function ($item) {
                     return '
                     <a class="btn btn-info m-1" href="' . route('invoices.show', $item->id)  . '">
-                        Details
+                        <i class="fas fa-fw fa-book"></i>
                     </a>
-                    <a class="btn btn-info m-1" href="' . route('items.index', $item->id)  . '">
-                        Item List
+                    <a class="btn btn-warning m-1" href="' . route('items.index', $item->id)  . '">
+                        <i class="fas fa-fw fa-bookmark"></i>
                     </a>
-                    <a class="btn btn-info m-1" href="' . route('payments.index', $item->id)  . '">
-                        Payment List
+                    <a class="btn btn-danger m-1" href="' . route('payments.index', $item->id)  . '">
+                        <i class="fas fa-fw fa-dollar-sign"></i>
                     </a>
                             ';
                 })
@@ -172,5 +172,13 @@ class InvoiceController extends Controller
         $invoiceNumber = "INV-$year-$paddedSequential";
 
         return $invoiceNumber;
+    }
+
+    public function markasdone($id)
+    {
+        $invoice = Invoice::findOrFail($id);
+        $invoice->status = true;
+        $invoice->save();
+        return back()->with('success', 'succesfully completed!');
     }
 }

@@ -31,7 +31,7 @@ class HomeController extends Controller
 
         $totalinvoice = Invoice::count();
         $doneinvoice = Invoice::where('status', 1)->count();
-        $tasks = ($doneinvoice / $totalinvoice) * 100;
+        $tasks = ceil(($doneinvoice / $totalinvoice) * 100);
 
         $balance_due = $earning - $payment;
 

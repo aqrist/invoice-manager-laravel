@@ -26,6 +26,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
+    Route::get('invoices/{id}/done', [InvoiceController::class, 'markasdone'])->name('invoices.markasdone');
     Route::resource('invoices', InvoiceController::class);
 
     Route::get('/items/{id}', [ItemController::class, 'index'])->name('items.index');
