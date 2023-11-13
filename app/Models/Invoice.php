@@ -20,6 +20,7 @@ class Invoice extends Model
         'amount_paid',
         'discount',
         'status',
+        'description',
     ];
 
     // public function ticket()

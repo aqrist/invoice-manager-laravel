@@ -14,6 +14,7 @@ class Payment extends Model
         'description',
         'transfer_date',
         'image',
+        'amount_paid',
     ];
 
     public function invoice()

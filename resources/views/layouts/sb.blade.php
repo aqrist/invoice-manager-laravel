@@ -9,7 +9,7 @@
     <meta name="description" content="Shell X Astra Admin">
     <meta name="author" content="Aqris T. Satria">
 
-    <title>Shell X Astra - Dashboard</title>
+    <title>Invoice Manager - Dashboard</title>
 
     <!-- CSS -->
     @stack('prepend-style')

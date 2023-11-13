@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('due_date')->nullable();
             $table->string('notes')->nullable();
             $table->string('terms')->nullable();
-            $table->double('amount_paid')->nullable();
+            $table->double('amount_paid')->default('0')->nullable();
             $table->double('discount')->nullable();
 
             $table->timestamps();

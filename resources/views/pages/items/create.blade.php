@@ -1,7 +1,7 @@
 @extends('layouts.sb')
 
 @section('heading')
-    Companies
+    Invoices | Add Item
 @endsection
 
 @section('content')
@@ -24,23 +24,24 @@
             <div class="card border-left-primary shadow">
 
                 <div class="card-header">
-                    Edit {{ $company->name }}
+                    Add Item
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('company.update', $company->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('items.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
+
+                        <input type="text" name="invoice_id" value="{{ $invoice->id }}" class="form-control d-none">
 
                         <!-- Create row then inside there are 2 col md 6 -->
-                        <div class="row">
+                        <div class="row mb-3">
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="name">Name:</label>
                                     <input type="text" id="name" name="name"
-                                        class="form-control @error('name') is-invalid @enderror" value="{{ $company->name }}"
-                                        required>
+                                        class="form-control @error('name') is-invalid @enderror"
+                                        value="{{ old('name') }}" required>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -51,11 +52,25 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="description">Description:</label>
-                                    <input type="text" id="description" name="description"
-                                        class="form-control @error('description') is-invalid @enderror"
-                                        value="{{ $company->description }}">
-                                    @error('description')
+                                    <label for="price">Price:</label>
+                                    <input type="number" id="price" name="price"
+                                        class="form-control @error('price') is-invalid @enderror"
+                                        value="{{ old('price') }}" required>
+                                    @error('price')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="qty">Qty:</label>
+                                    <input type="number" id="qty" name="qty"
+                                        class="form-control @error('qty') is-invalid @enderror"
+                                        value="{{ old('qty') }}" required>
+                                    @error('qty')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
