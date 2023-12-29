@@ -61,6 +61,7 @@
                                     <th class="d-none">Id</th>
                                     <th>Invoice Number</th>
                                     <th>Desc</th>
+                                    <th>Total Amount</th>
                                     <th>Balance Due</th>
                                     <th>Amount Paid</th>
                                     <th>Status</th>
@@ -104,6 +105,14 @@
                 {
                     data: 'description',
                     name: 'description'
+                },
+                {
+                    data: 'total_amount',
+                    name: 'total_amount',
+                    render: function(data, type, row) {
+                        // Format the amount as currency
+                        return 'Rp. ' + number_format(data, 2, ',', '.');
+                    }
                 },
                 {
                     data: 'balance_due',

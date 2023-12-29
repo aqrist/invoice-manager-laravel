@@ -26,6 +26,10 @@ class InvoiceController extends Controller
             }
 
             return Datatables::of($query)
+                ->addColumn('total_amount', function ($item) {
+                    $total_amount = Item::where('invoice_id', $item->id)->sum('price');
+                    return $total_amount;
+                })
                 ->addColumn('balance_due', function ($item) {
                     $subtotal = Item::where('invoice_id', $item->id)->sum('price');
                     $discount = $item->discount;
@@ -63,7 +67,7 @@ class InvoiceController extends Controller
                     </a>
                             ';
                 })
-                ->rawColumns(['action', 'status', 'balance_due'])
+                ->rawColumns(['action', 'total_amount', 'status', 'balance_due'])
                 ->make(true);
         }
         return view('pages.invoices.index');
@@ -119,11 +123,14 @@ class InvoiceController extends Controller
         $subtotal = Item::where('invoice_id', $id)->sum('price');
         $paid = Payment::where('invoice_id', $id)->sum('amount_paid');
 
+        $payments = Payment::where('invoice_id', $id)->get();
+
         return view('pages.invoices.show')->with([
             'invoice' => $invoice,
             'items' => $items,
             'subtotal' => $subtotal,
             'paid' => $paid,
+            'payments' => $payments,
         ]);
     }
 

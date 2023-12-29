@@ -34,6 +34,7 @@ class HomeController extends Controller
         $tasks = ceil(($doneinvoice / $totalinvoice) * 100);
 
         $balance_due = $earning - $payment;
+        $total_earning = $earning - $balance_due;
 
         $items = Item::all()->count();
 
@@ -42,6 +43,7 @@ class HomeController extends Controller
             'balance_due' => $balance_due,
             'tasks' => $tasks,
             'items' => $items,
+            'total_earning' => $total_earning
         ]);
     }
 }

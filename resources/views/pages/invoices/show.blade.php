@@ -144,17 +144,53 @@
 
                     {{-- Payment List --}}
                     <div class="row mb-3 mt-5">
-                        @if ($subtotal - $invoice->discount - $paid == 0 && $invoice->status == 0)
+                        @if ($invoice->status == 0)
                             <div class="col-12">
                                 <a href="{{ route('invoices.markasdone', $invoice->id) }}" class="btn btn-success">Mark as
                                     Done</a>
                             </div>
                         @else
                         @endif
-                        <div class="col-12">
+                        <div class="col-12 mb-3">
                             <a class="btn btn-info m-1" href="{{ route('payments.index', $invoice->id) }}">
                                 Payment List
                             </a>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="row">
+                                <!-- Image List -->
+                                <ul class="list-group">
+                                    <div class="col-3">
+                                        @foreach ($payments as $payment)
+                                            <li class="list-group-item">
+                                                <img src="{{ asset('storage/' . $payment->image) }}"
+                                                    alt="{{ $payment->description }}" class="img-thumbnail"
+                                                    style="cursor: pointer;" data-toggle="modal" data-target="#imageModal"
+                                                    data-image="{{ asset('storage/' . $payment->image) }}">
+                                            </li>
+                                        @endforeach
+                                    </div>
+
+                                </ul>
+                            </div>
+
+                            <!-- Image Popup/Modal -->
+                            <div class="modal fade" id="imageModal" tabindex="-1" role="dialog"
+                                aria-labelledby="imageModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <img id="modalImage" src="" class="img-fluid" alt="Image">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -162,3 +198,14 @@
         </div>
     </div>
 @endsection
+
+@push('addon-script')
+    <script>
+        // Handle click events on list items
+        $('.list-group-item img').on('click', function() {
+            var imageUrl = $(this).data('image');
+            $('#modalImage').attr('src', imageUrl);
+            $('#imageModal').modal('show');
+        });
+    </script>
+@endpush
